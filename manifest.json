@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Security Header Checker",
+    "version": "1.0",
+    "description": "ตรวจสอบ HTTP Security Headers ตาม OWASP",
+    "permissions": ["webRequest", "webRequestBlocking", "tabs", "activeTab", "storage"],
+    "host_permissions": ["<all_urls>"],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    }
+  }
+  
