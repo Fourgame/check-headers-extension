@@ -15,8 +15,19 @@
 </head>
 <body>
   <h3>HTTP Security Headers</h3>
-  <div id="score" style="margin-bottom: 10px; font-weight: bold;"></div>
+
+  <div id="apiKeyWrapper" style="margin-top: 10px;">
+    <label for="apiKey">Gemini API Key:</label><br>
+    <input type="password" id="apiKey" style="width:100%;" placeholder="AIza...">
+    <button id="saveKey">Save Key</button>
+  </div>
+
+  <button id="analyzeWithAI" style="margin-top:10px;">Analyze Headers with Gemini</button>
+
+  <div id="aiResult" style="margin-top:10px; font-size:13px; color:#333;"></div>
+
   <table id="result"></table>
+
   <script src="popup.js"></script>
 </body>
 </html>

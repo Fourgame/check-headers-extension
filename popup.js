@@ -246,3 +246,68 @@ function calculateSecurityScore(headers) {
   });
   return Math.round(score);
 }
+
+
+// โหลด key ตอนเปิด popup
+chrome.storage.local.get("geminiKey", data => {
+  if (data.geminiKey) {
+    document.getElementById("apiKey").value = data.geminiKey;
+  }
+});
+
+// Save Key
+document.getElementById("saveKey").onclick = () => {
+  const key = document.getElementById("apiKey").value;
+  chrome.storage.local.set({ geminiKey: key }, () => {
+    alert("Gemini API Key saved.");
+  });
+};
+
+// โหลด headers แล้วแสดงผล
+chrome.storage.local.get("lastHeaders", data => {
+  renderHeaders(data.lastHeaders || {});
+});
+
+// ปุ่ม Analyze ด้วย Gemini
+document.getElementById("analyzeWithAI").onclick = () => {
+  const apiKey = document.getElementById("apiKey").value;
+  if (!apiKey) {
+    alert("Please enter your Gemini API Key.");
+    return;
+  }
+
+  chrome.storage.local.get("lastHeaders", async (data) => {
+    const headers = data.lastHeaders || {};
+    const body = { apiKey, headers };
+
+    try {
+      const res = await fetch("http://localhost:5000/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const json = await res.json();
+      if (json.result) {
+        document.getElementById("aiResult").innerText = json.result;
+
+        // บันทึกผล Gemini โดยใช้ domain เป็น key
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          const url = new URL(tabs[0].url);
+          const domain = url.hostname;
+
+          chrome.storage.local.get("geminiAnalysis", (data) => {
+            const analysis = data.geminiAnalysis || {};
+            analysis[domain] = json.result;
+            chrome.storage.local.set({ geminiAnalysis: analysis });
+          });
+        });
+
+      } else {
+        document.getElementById("aiResult").innerText = "Error: " + (json.error || "No response");
+      }
+    } catch (e) {
+      document.getElementById("aiResult").innerText = "Backend error: " + e.message;
+    }
+  });
+};
