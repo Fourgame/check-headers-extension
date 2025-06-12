@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <title>Security Headers</title>
+  <style>
+    body { font-family: sans-serif; padding: 10px; width: 360px; }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+    nav button {
+      flex: 1;
+      background: none;
+      border: none;
+      font-size: 13px;
+      padding: 5px;
+      cursor: pointer;
+      color: #888;
+    }
+    nav button.active { color: #007bff; font-weight: bold; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 6px; border-bottom: 1px solid #ddd; text-align: left; }
+    .correct::before { content: ''; color: green; }
+    .uncorrect::before { content: ''; color: orange; }
+    .not-have::before { content: ''; color: red; }
+    .main-row:hover { background-color: #f5f5f5; cursor: pointer; }
+    .detail-row td { background-color: #f9f9f9; border-left: 3px solid #ccc; }
+
+  </style>
+</head>
+<body>
+  <h2 style="margin-top: 0;">Security Header OWASP Analysis</h2>
+
+  <nav>
+    <button class="tab-btn active" data-tab="tab-header">HTTP Header</button>
+    <button class="tab-btn" data-tab="tab-gemini">AI Analysis</button>
+    <button class="tab-btn" data-tab="tab-dom">DOM and Fix</button>
+  </nav>
+
+  <div class="tab-content active" id="tab-header">
+    <h3>HTTP Header Analysis</h3>
+    <div id="score"></div>
+    <table id="result" style="cursor: pointer;"></table>
+  </div>
+
+  <div class="tab-content" id="tab-gemini">
+    <h3>Gemini AI Analysis</h3>
+    <div id="apiKeyWrapper" style="margin-top: 10px;">
+      <label for="apiKey">Gemini API Key:</label><br>
+      <input type="password" id="apiKey" style="width:100%;" placeholder="AIza...">
+      <button id="saveKey">Save Key</button>
+    </div>
+    <button id="analyzeWithAI" style="margin-top:10px;">Analyze Headers with Gemini</button>
+    <div id="aiResult" style="margin-top:10px; font-size:13px; color:#333;"></div>
+  </div>
+
+  <div class="tab-content" id="tab-dom">
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+      <button id="generateHeaderFromDOM">Generate Secure Headers</button>
+      <button id="showCurrentHeaders">Show Current HTTP Headers</button>
+    </div>
+    
+<pre id="currentHeadersDisplay" style="white-space: pre-wrap; font-size:12px; color:#333; margin-top:10px; display:none; background:#f9f9f9; border:1px dashed #ccc; padding:10px;"></pre>
+
+    <pre id="suggestedHeaders" style="white-space: pre-wrap; margin-top:10px; font-size:12px; color:green;"></pre>
+    <h3>🧬 DOM Analysis</h3>
+    <div id="domResult" style="font-size:13px; color:#444;"></div>
+    <button id="runDomAnalysis" style="margin-top:10px; padding:5px 10px;">Re-run DOM Analysis</button>
+    <div style="margin-top: 20px;">
+      <label for="currentDomain"><b>🌐 Website:</b></label><br>
+      <input type="text" id="currentDomain" readonly style="width:100%; font-size:13px; padding:5px; background:#f0f0f0; border:1px solid #ccc;" />
+    </div>
+    
+      <h3 style="margin-top:20px;">Secure Headers</h3>
+    <textarea id="finalHeaderBox" rows="6" style="width:100%; font-family:monospace; font-size:13px; background:#fafafa; border:1px solid #ccc;"></textarea>
+    <h3 style="margin-top:20px;">Combined Header Output</h3>
+  
+    <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+      <label for="headerModeSelect" style="font-weight: bold;">Apply Mode:</label>
+      <select id="headerModeSelect" style="flex:1; padding:5px;">
+        <option value="website">Website Headers</option>
+        <option value="user">User Headers</option>
+        <option value="combine_strict">Combine (Strictest)</option>
+        <option value="combine_loose">Combine (Loosest)</option>
+      </select>
+    </div>
+  
+    <textarea id="combinedHeaderOutput" rows="6" style="width:100%; font-family:monospace; font-size:13px; background:#eef9ff; border:1px solid #007bff; padding:10px;" readonly></textarea>
+  
+    <div style="margin-top:10px; display: flex; gap: 10px;">
+      <button id="exportText">Export Text</button>
+      <button id="exportJSON">Export JSON</button>
+      <button id="applyAllHeaders">Apply Mode</button>
+    </div>
+  
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

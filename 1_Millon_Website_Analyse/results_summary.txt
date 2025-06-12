@@ -1,0 +1,100 @@
+== Content-Security-Policy ==
+missing: 656750
+timeout: 229002
+no-default-src: 70771
+insecure: 29904
+insecure,no-default-src: 13038
+valid: 535
+
+== X-Frame-Options ==
+missing: 507007
+valid: 248692
+timeout: 229002
+invalid: 15299
+
+== Referrer-Policy ==
+missing: 606894
+timeout: 229002
+valid: 163886
+invalid: 218
+
+== Permissions-Policy ==
+missing: 685058
+timeout: 229002
+valid: 81532
+invalid: 4408
+
+== X-XSS-Protection ==
+missing: 596690
+timeout: 229002
+valid: 166361
+disabled: 7947
+
+== Public-Key-Pins ==
+missing: 770725
+timeout: 229002
+valid: 267
+malformed: 6
+
+== Pragma ==
+other: 659621
+timeout: 229002
+has-cache-control: 91679
+pragma-only-no-cache: 19698
+
+== X-Content-Type-Options ==
+missing: 496021
+valid: 267110
+timeout: 229002
+invalid: 7867
+
+== Cross-Origin-Embedder-Policy ==
+missing: 714178
+timeout: 229002
+valid: 53540
+invalid: 3280
+
+== Cross-Origin-Opener-Policy ==
+missing: 708593
+timeout: 229002
+valid: 59720
+unsafe: 1963
+invalid: 722
+
+== Cross-Origin-Resource-Policy ==
+missing: 712550
+timeout: 229002
+valid: 58033
+invalid: 415
+
+== Clear-Site-Data ==
+missing: 770867
+timeout: 229002
+invalid: 130
+valid: 1
+
+== Cache-Control ==
+valid: 423289
+missing: 313246
+timeout: 229002
+incomplete: no-cache only: 29746
+conflict: multiple max-age: 2904
+conflict: public + no-store: 1813
+
+== Expect-CT ==
+missing: 765099
+timeout: 229002
+valid: 5889
+enforce-no-max-age: 10
+
+== Feature-Policy ==
+missing: 765672
+timeout: 229002
+used: 5326
+
+== X-Permitted-Cross-Domain-Policies ==
+missing: 718474
+timeout: 229002
+valid: 51354
+invalid: 1170
+
